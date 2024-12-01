@@ -2,8 +2,8 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 
-// Simplified cn utility
-const cn = (...classes: string[]) => {
+// Simplified cn utility with improved type handling
+const cn = (...classes: (string | undefined)[]) => {
   return classes.filter(Boolean).join(' ');
 };
 
@@ -20,7 +20,7 @@ export const TextGenerateEffect = ({
 }) => {
   const scopeRef = useRef<HTMLDivElement>(null);
   const wordsArray = words.split(" ");
-
+  
   const animate = useCallback(() => {
     if (scopeRef.current) {
       const spans = scopeRef.current.querySelectorAll('span');
@@ -32,11 +32,11 @@ export const TextGenerateEffect = ({
       });
     }
   }, [filter, duration]);
-
+  
   useEffect(() => {
     animate();
   }, [animate]);
-
+  
   const renderWords = () => {
     return (
       <motion.div ref={scopeRef}>
@@ -57,7 +57,7 @@ export const TextGenerateEffect = ({
       </motion.div>
     );
   };
-
+  
   return (
     <div className={cn("font-bold", className)}>
       <div className="my-4">
