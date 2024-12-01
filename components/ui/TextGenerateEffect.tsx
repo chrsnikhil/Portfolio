@@ -28,10 +28,10 @@ export const TextGenerateEffect = ({
         setTimeout(() => {
           span.style.opacity = '1';
           span.style.filter = filter ? 'blur(0px)' : 'none';
-        }, index * 200);
+        }, index * (duration * 1000));
       });
     }
-  }, [filter]);
+  }, [filter, duration]);
 
   useEffect(() => {
     animate();
