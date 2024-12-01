@@ -1,8 +1,12 @@
 "use client";
-import { useEffect } from "react";
-import { motion, stagger, useAnimate } from "framer-motion";
-import { cn } from "@/lib/utils";
- 
+import React, { useEffect, useRef, useCallback } from "react";
+import { motion } from "framer-motion";
+
+// Simplified cn utility
+const cn = (...classes: string[]) => {
+  return classes.filter(Boolean).join(' ');
+};
+
 export const TextGenerateEffect = ({
   words,
   className,
@@ -14,45 +18,50 @@ export const TextGenerateEffect = ({
   filter?: boolean;
   duration?: number;
 }) => {
-  const [scope, animate] = useAnimate();
-  let wordsArray = words.split(" ");
+  const scopeRef = useRef<HTMLDivElement>(null);
+  const wordsArray = words.split(" ");
+
+  const animate = useCallback(() => {
+    if (scopeRef.current) {
+      const spans = scopeRef.current.querySelectorAll('span');
+      spans.forEach((span, index) => {
+        setTimeout(() => {
+          span.style.opacity = '1';
+          span.style.filter = filter ? 'blur(0px)' : 'none';
+        }, index * 200);
+      });
+    }
+  }, [filter]);
+
   useEffect(() => {
-    animate(
-      "span",
-      {
-        opacity: 1,
-        filter: filter ? "blur(0px)" : "none",
-      },
-      {
-        duration: duration ? duration : 1,
-        delay: stagger(0.2),
-      }
-    );
-  }, [scope.current]);
- 
+    animate();
+  }, [animate]);
+
   const renderWords = () => {
     return (
-      <motion.div ref={scope}>
+      <motion.div ref={scopeRef}>
         {wordsArray.map((word, idx) => {
           return (
             <motion.span
-            key={word + idx}
-            // change here if idx is greater than 3, change the text color to #CBACF9
-            className={` ${idx > 3 ? "text-purple" : "dark:text-white text-black"
-              } opacity-0`}
-          >
-            {word}{" "}
+              key={word + idx}
+              className={`${
+                idx > 3 
+                  ? "text-purple-500" 
+                  : "dark:text-white text-black"
+              } opacity-0 transition-all duration-300`}
+            >
+              {word}{" "}
             </motion.span>
           );
         })}
       </motion.div>
     );
   };
- 
+
   return (
     <div className={cn("font-bold", className)}>
       <div className="my-4">
-        <div className=" dark:text-white text-black  leading-snug tracking-wide">
+        <div className="dark:text-white text-black leading-snug tracking-wide">
           {renderWords()}
         </div>
       </div>
