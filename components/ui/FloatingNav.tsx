@@ -7,12 +7,12 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 
-// Replacement for cn utility
-const cn = (...classes: string[]) => {
-  return classes.filter(Boolean).join(' ');
+const cn = (...classes: (string | undefined)[]) => {
+  return classes
+    .filter((cls): cls is string => cls !== undefined && cls.trim() !== '')
+    .join(' ');
 };
 
-// Simplified Link replacement
 const Link = ({ href, children, className }: {
   href: string, 
   children: React.ReactNode, 
@@ -23,7 +23,6 @@ const Link = ({ href, children, className }: {
   </a>
 );
 
-// Define a more specific type for nav items
 type NavItem = {
   name: string;
   link: string;
@@ -42,7 +41,6 @@ export const FloatingNav = ({
   const [visible, setVisible] = useState(false);
  
   useMotionValueEvent(scrollYProgress, "change", (current) => {
-    // Check if current is not undefined and is a number
     if (typeof current === "number") {
       const direction = current - (scrollYProgress.getPrevious() ?? 0);
  
