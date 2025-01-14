@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Golos_Text } from "next/font/google";
+import { Golos_Text } from "next/font/google";
 
 import "./globals.css";
 import { ThemeProvider } from "./provider";
