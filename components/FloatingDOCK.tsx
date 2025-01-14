@@ -1,16 +1,8 @@
 import React from "react";
 import { FloatingDock } from "@/components/ui/floating-dock";
-import {
-  IconBrandGithub,
-  IconBrandX,
-  IconExchange,
-  IconHome,
-  IconNewSection,
-  IconTerminal2,
-} from "@tabler/icons-react";
-import Image from "next/image";
-import { Fa500Px, FaAcquisitionsIncorporated, FaAddressCard, FaGithub, FaHome, FaInstagram, FaLinkedin, FaLinkedinIn, FaMailBulk, FaWhatsapp } from "react-icons/fa";
-import { SiAmazondocumentdb, SiDuolingo, SiFiles, SiGmail, SiReactiveresume, SiStandardresume } from "react-icons/si";
+
+import { FaGithub, FaHome,  FaLinkedin,  FaWhatsapp } from "react-icons/fa";
+import { SiDuolingo, SiFiles, SiGmail, } from "react-icons/si";
 
 export function FloatingDockDemo() {
   const links = [
