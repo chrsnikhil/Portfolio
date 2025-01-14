@@ -1,47 +1,68 @@
-import React from 'react'
+"use client";
+
+import React, { useState, useRef } from 'react'
 import { Spotlight } from './ui/Spotlight'
 import { TextGenerateEffect } from './ui/TextGenerateEffect'
-import MagicButton from './ui/MagicButton'
-import { FaLocationArrow } from 'react-icons/fa'
+import { FaLocationArrow, FaVolumeUp, FaVolumeMute } from 'react-icons/fa'
+import { ResumeModal } from './ResumeModal'
 
 const Hero = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   return (
     <div className='pb-20 pt-36'>
-        <div>
-            <Spotlight className='-top-40 -left-10 md:-left-32 md:-top-20 h-screen'fill="white"/>
-            <Spotlight className='top-10 left-full h-[80vh] w-[50vw]' fill="purple"/>
-            <Spotlight className='top-28 left-80 h-[80vh] w-[50vw]'fill="blue"/>
-        </div>
-        <div>
-        <div className="h-screen w-full dark:bg-black-100 bg-white  dark:bg-grid-white/[0.05] bg-grid-black/[0.1]  flex items-center justify-center absolute top-0 left-0">
-      {/* Radial gradient for the container to give a faded look */}
-      <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"/>
-     
-    </div>
-    <div className='flex justify-center relative my-20 z-10'>
-        <div className='max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center'>
-            <h2 className='uppercase tracking-widest text-xs text-center text-blue-100 max-w-80'>
-                Improving 1% everyday
+      <audio ref={audioRef} src='/about/music.mp3' loop />
+      <button
+        onClick={togglePlay}
+        className='absolute top-4 left-1/2 transform -translate-x-1/2 p-2 rounded-full flex items-center justify-center'
+        style={{
+          background: "linear-gradient(145deg, rgba(26, 27, 36, 0.95), rgba(40, 41, 54, 0.98))",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          border: "1px solid rgba(255, 255, 255, 0.15)",
+          boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.4)"
+        }}
+      >
+        {isPlaying ? <FaVolumeUp className='text-white' /> : <FaVolumeMute className='text-white' />}
+      </button>
+      <div className="fixed inset-0 -z-10">
+        <Spotlight className='-top-40 -left-10 md:-left-32 md:-top-20 h-[60vh] will-change-transform' fill="white"/>
+        <Spotlight className='top-10 left-full h-[40vh] w-[30vw] will-change-transform' fill="purple"/>
+        <Spotlight className='top-28 left-80 h-[40vh] w-[30vw] will-change-transform' fill="blue"/>
+      </div>
+      <div>
+        <div className='flex justify-center relative my-20 z-10'>
+          <div className='max-w-[89vw] md:max-w-3xl lg:max-w-[65vw] flex flex-col items-center justify-center'>
+            <h2 className='uppercase tracking-widest text-xs text-center text-blue-200 max-w-80 font-golos mb-8 drop-shadow-lg font-medium'>
+              Improving 1% everyday
             </h2>
-            <TextGenerateEffect 
-            className='text-center text-[40px] md:text-5xl lg:text-6xl'
-            words='From imagination to existence, Creating experiences that inspire.'/>
-            <p className='text-center md: tracking-wider mb-4 text-sm md:text-lg lg:text-2xl'>
-                Hey there! This is Nikhil, a developer based in Chennai
+            <div className="w-full max-w-4xl mx-auto">
+              <TextGenerateEffect 
+                className='!text-center !text-[32px] !leading-tight md:!text-[48px] lg:!text-[56px] font-golos !tracking-tight text-white drop-shadow-2xl font-bold'
+                words='From imagination to existence, Creating experiences that inspire.'
+              />
+            </div>
+            <p className='text-center tracking-wider mt-8 mb-4 text-sm md:text-base lg:text-lg font-golos text-white drop-shadow-xl font-medium'>
+              Hey there! This is Nikhil, a developer based in Chennai
             </p>
-            <a href='#about'>
-                <MagicButton 
-                title="Show my work"
-                icon={<FaLocationArrow/>}
-                position='right'
-
-                />
-            </a>
+            <div className="mt-8">
+              <ResumeModal />
+            </div>
+          </div>
         </div>
-    </div>
-    
-    
-        </div>
+      </div>
     </div>
   )
 }
