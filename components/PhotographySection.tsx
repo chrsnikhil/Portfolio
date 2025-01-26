@@ -27,9 +27,9 @@ const photographyItems = [
     image: "/about/tlou1.jpg"
   },
   {
-    title: "The Hunter chases the Spider",
-    description: "With Great power comes Great Responsibility",
-    image: "/about/spidey.jpg"
+    title: "Arthur Morgan",
+    description: "Take a gamble that love exists and do a loving act",
+    image: "/about/Arthur.jpg"
   },
   {
     title: "BrotherHood",
