@@ -128,6 +128,23 @@ const BentoGridItem = ({
               </button>
             </a>
           )}
+          {index === 2 && (
+            <a href="https://github.com/chrsnikhil/ParkinComplete" target="_blank" rel="noopener noreferrer">
+              <button
+                className="absolute bottom-4 right-4 px-4 py-2 rounded-full flex items-center justify-center"
+                style={{
+                  background: "linear-gradient(145deg, rgba(26, 27, 36, 0.95), rgba(40, 41, 54, 0.98))",
+                  backdropFilter: "blur(8px)",
+                  WebkitBackdropFilter: "blur(8px)",
+                  border: "1px solid rgba(255, 255, 255, 0.15)",
+                  boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.4)",
+                  color: "white"
+                }}
+              >
+                <FaGithub />
+              </button>
+            </a>
+          )}
           {index === 3 && (
             <a href="https://parkin-olive.vercel.app/" target="_blank" rel="noopener noreferrer">
               <button
